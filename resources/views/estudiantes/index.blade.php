@@ -1,42 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            width: 100%;
-            margin: 10px;
-            padding: 10px;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-
-        table {
-            width: 95%;
-            text-align: center;
-            margin: 20px;
-            padding: 20px;
-            background-color: black;
-            color: white;
-        }
-
-        tbody td {
-            width: 120px;
-            height: 140px;
-            margin: 0;
-            padding: 0;
-            border: 2px solid white;
-        }
-    </style>
-</head>
-
-<body>
+@extends('layouts.app')
+@section('content')
+@if(Session::has('mensaje'))
+<div class="alert alert-success alert-dismissible" role="alert">
+    {{Session::get('mensaje')}}
+</div>
+@endif
+<div class="container">
+    @if(Session::has('mensaje'))
+    {{Session::get('mensaje')}}
+    @endif
+    <a href="{{url('/estudiantes/create')}}" class="btn btn-success">Crear un nuevo estudiante</a>
     <table class="table">
         <thead>
             <tr>
@@ -54,23 +27,31 @@
             @foreach($estudiantes as $estudiantes)
             <tr>
                 <td>{{$estudiantes->id}}</td>
-                <td><img src="{{asset('storage').'/'.$estudiantes->foto}}" alt=""></td>
+                <td><img src="{{asset('storage').'/'.$estudiantes->foto}}" alt="" style="height: 100px; width:100px;"></td>
                 <td>{{$estudiantes->nombre}}</td>
                 <td>{{$estudiantes->primerapel}}</td>
                 <td>{{$estudiantes->segundoapel}}</td>
                 <td>{{$estudiantes->correo}}</td>
-                <td><a href="{{url('/estudiantes/'.$estudiantes->id.'/edit')}}">Editar</a> |
-                    <form action="{{url('/estudiantes/'.$estudiantes->id)}}" method="post">
-                        @csrf
-                        @method('DELETE') 
-                        <input type="submit" onclick="return confirm ('¿Deseas eliminar?')" value="ELIMINAR">
-                    </form>
+                <td>
+                    <div class="accion" style="display: flex; justify-content:center; align-items: center; margin-left:0;">
+                        <a href="{{url('/estudiantes/'.$estudiantes->id.'/edit')}}" class="btn btn-info" style="width:auto; font-size:10px;">Editar</a> | <form action="{{url('/estudiantes/'.$estudiantes->id)}}" method="post" style="width: 20px;">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" onclick="return confirm ('¿Deseas eliminar?')" value="ELIMINAR" class="btn btn-danger" style="width:auto; font-size:10px;">
+                        </form>
 
+
+                    </div>
                 </td>
             </tr>
+
             @endforeach
         </tbody>
-    </table>
-</body>
 
-</html>
+{!! $estudiantes->Links() !!}
+
+    </table>
+
+
+</div>
+@endsection

@@ -1,31 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-</head>
-<body>
-    
-FORMULARIO QUE TENDRA EL CREAR Y ACTUALIZAR DATOS
-    <label for="nombre">NOMBRE</label>
+@extends('layouts.app')
+@section('content')
+
+ACTUALIZAR DATOS DEL ESTUDIANTE:
+<br>
+    <label for="nombre">NOMBRE:</label>
+    <br>
     <input type="text" name="nombre" id="nombre" value="{{$estudiantes->nombre}}">
     <br>
-    <label for="primerapel">PRIMER APELLIDO</label>
+    <label for="primerapel">PRIMER APELLIDO:</label>
+    <br>
     <input type="text" name="primerapel" id="primerapel" value="{{$estudiantes->primerapel}}">
     <br>
-    <label for="segundoapel">SEGUNDO APELLIDO</label>
+    <label for="segundoapel">SEGUNDO APELLIDO:</label>
+    <br>
     <input type="text" name="segundoapel" id="segundoapel" value="{{$estudiantes->segundoapel}}">
     <br>
-    <label for="correo">CORREO</label>
+    <label for="correo">CORREO:</label>
+    <br>
     <input type="email" name="correo" id="correo"value="{{$estudiantes->correo}}">
     <br>
-    <label for="foto">FOTO</label>
-    <img src="{{asset('storage').'/'.$estudiantes->foto}}" alt="">
-    <input type="file" name="foto" id="foto" value="">
+    <label for="foto">FOTO:</label>
     <br>
-    <input type="submit" value="ENVIAR">
+    <img src="{{asset('storage').'/'.$estudiantes->foto}}" alt="" style="height: 110px;">
+    <br>
+    <input type="file" name="foto" id="foto" value="" class="btn btn-warning">
+    <br>
+    <input type="submit" value="ENVIAR" class="btn btn-success">
+    @if(count($errors)>0)
+<div class="alert alert-danger" role="alert">
+    <ul>
+        @foreach($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+    </ul>
 
-</body>
-</html>
+</div>
+@endif
+    
+
+@endsection
