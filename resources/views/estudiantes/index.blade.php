@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($estudiantes as $estudiantes)
+            @foreach($estudiante as $estudiantes)
             <tr>
                 <td>{{$estudiantes->id}}</td>
                 <td><img src="{{asset('storage').'/'.$estudiantes->foto}}" alt="" style="height: 100px; width:100px;"></td>
@@ -48,10 +48,10 @@
             @endforeach
         </tbody>
 
-{!! $estudiantes->Links() !!}
+
 
     </table>
-
+{!! $estudiante->Links() !!}
 
 </div>
 @endsection
